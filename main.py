@@ -5,10 +5,10 @@ from config import Config
 
 if __name__ == "__main__":
     try:
-        logging.basicConfig(filename='all.log',level=logging.INFO)
+        logging.basicConfig(level=logging.INFO)
 
         logging.info("Creating bot")
-        bot = Bot(Config.sound_path)
+        bot = Bot()
 
         logging.info("Starting bot")
         bot.run(Config.key)
