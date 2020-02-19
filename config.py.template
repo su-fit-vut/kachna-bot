@@ -3,6 +3,5 @@ class Config:
 	# Sound format in .mp3, even better if in .ogg
 	sound_path = 'mmh.ogg'
 	# allowed channel
-	allowed_channel = 0
 	wait_time = 3600 # 1 second
 
