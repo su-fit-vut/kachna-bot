@@ -3,18 +3,18 @@ from pygame import mixer
 from config import Config
 import datetime
 from iskachnaopen import IsKachnaOpen
-from logger import Logger
 import helper
+import logging
 
 
 class Bot(discord.Client):
     def __init__(self):
         super().__init__()
 
-        Logger.info("Initializing pygame mixer")
+        logging.info("Initializing pygame mixer")
         mixer.init()
 
-        Logger.info("Creating sound object")
+        logging.info("Creating sound object")
         self.sound = mixer.Sound(Config.sound_path)
         self.wait_time = datetime.datetime.utcnow() - datetime.timedelta(seconds=Config.wait_time)
 
@@ -28,7 +28,7 @@ class Bot(discord.Client):
         ):
             return
 
-        Logger.info("Incoming message from {}.".format(message.author))
+        logging.info("Incoming message from {}.".format(message.author))
         next_available_call_at = self.wait_time + datetime.timedelta(seconds=Config.wait_time)
         if next_available_call_at > datetime.datetime.utcnow():
             await message.add_reaction('❌')
@@ -41,14 +41,7 @@ class Bot(discord.Client):
             await message.channel.send('Kachna je otevřená a měl by mít volný průchod.')
             return
 
-        if isinstance(message.channel, discord.DMChannel):
-            Logger.log_bell(message, 'PM')
-        elif self.user in message.mentions:
-            Logger.log_bell(message, 'Guild')
-        else:
-            return
-
         self.wait_time = datetime.datetime.utcnow()
         await message.add_reaction('✅')
-        Logger.info("Playing sound")
+        logging.info("Playing sound")
         self.sound.play()
