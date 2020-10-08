@@ -4,4 +4,5 @@ class Config:
 	sound_path = 'mmh.ogg'
 	# allowed channel
 	wait_time = 3600 # 1 second
-
+	#IsKachnaOpen
+	is_kachna_open: str = 'https://su.fit.vutbr.cz/iskachnaopen/api/duck/currentState'
