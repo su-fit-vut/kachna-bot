@@ -33,7 +33,7 @@ class Bot(discord.Client):
         if next_available_call_at > datetime.datetime.utcnow():
             await message.add_reaction('❌')
             next_call_at = helper.utc_to_local_time(next_available_call_at)
-            await message.channel.send('Někdo jiný už před tebou zazvonil. Další zazvonění bude možné v: {}'
+            await message.channel.send('Někdo jiný už před tebou zazvonil. Další zazvonění bude možné v: **{}**'
                                        .format(helper.datetime_to_local_string(next_call_at)))
             return
 
