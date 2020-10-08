@@ -1,6 +1,6 @@
 # KachnaBot
 
-## Requirements
+## Závislosti
 
 * python3
 * pip3
@@ -8,16 +8,14 @@
 * sdl-mixer
 * portmidi
 
+Na manjaru radši: `sudo pacman -S python-pygame`
+
 ## Setup
 ```sh
-python -m venv env
-source ./env/bin/activate
-pip install -r requirements.txt
-```
-
-## Run
-```sh
-source ./env/bin/activate
+pip3 install -r requirements.txt
 python main.py
 ```
 
+**Aplikace potřebuje běžet pod běžným uživatelem. Kvůli přístupu ke zvukové kartě.**
+
+Na produkci je aplikace nasazena jako systemd user service `systemctl --user status kachna_bot.service`.
