@@ -28,13 +28,13 @@ class Bot(discord.Client):
         ):
             return
 
-        logging.info("Incoming message from {}.".format(message.author))
+        logging.info(f"Incoming message from {message.author}.")
         next_available_call_at = self.wait_time + datetime.timedelta(seconds=Config.wait_time)
         if next_available_call_at > datetime.datetime.utcnow():
             await message.add_reaction('❌')
             next_call_at = helper.utc_to_local_time(next_available_call_at)
-            await message.channel.send('Někdo jiný už před tebou zazvonil. Další zazvonění bude možné v: **{}**'
-                                       .format(helper.datetime_to_local_string(next_call_at)))
+            await message.channel.send('Někdo jiný už před tebou zazvonil. Další zazvonění bude možné v: ' +
+                                       f'**{helper.datetime_to_local_string(next_call_at)}**')
             return
 
         if not IsKachnaOpen.is_closed():

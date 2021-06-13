@@ -14,12 +14,11 @@ class IsKachnaOpen:
         state: str = IsKachnaOpen.get_state().strip()
 
         elapsed = round(time.time() - start_time, 2)
-        logging.info('Checking IsKachnaOpen done. (Time: {} sec)'.format(elapsed))
+        logging.info(f'Checking IsKachnaOpen done. (Time: {elapsed} sec)')
 
         return state == 'Closed' or state == 'Private'
 
     @staticmethod
     def get_state() -> str:
         request = requests.get(Config.is_kachna_open, stream=True)
-        response = dict(json.loads(request.content))
-        return response['state']
+        return dict(json.loads(request.content))['state']

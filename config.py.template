@@ -1,7 +1,7 @@
 class Config:
 	key = ''
 	# Sound format in .mp3, even better if in .ogg
-	sound_path = 'mmh.ogg'
+	sound_path = 'duck-double.ogg'
 	# allowed channel
 	wait_time = 3600 # 1 second
 	#IsKachnaOpen
