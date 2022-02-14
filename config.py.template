@@ -5,4 +5,4 @@ class Config:
 	# allowed channel
 	wait_time = 3600 # 1 second
 	#IsKachnaOpen
-	is_kachna_open: str = 'https://su.fit.vutbr.cz/iskachnaopen/api/duck/currentState'
+	is_kachna_open: str = 'https://www.su.fit.vutbr.cz/kachna/api/states/current'
