@@ -1,4 +1,5 @@
 class Config:
+    # Discord bot token
 	key = ''
 	# Sound format in .mp3, even better if in .ogg
 	sound_path = 'duck-double.ogg'
