@@ -1,0 +1,13 @@
+[Unit]
+Description=KachnaBot
+After=network.target
+
+[Service]
+Type=simple
+Restart=on-failure
+User=monitor
+ExecStart=/usr/bin/python3 ~monitor/KachnaBot/main.py
+WorkingDirectory=~monitor/KachnaBot/
+
+[Install]
+WantedBy=multi-user.target
