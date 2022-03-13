@@ -3,7 +3,21 @@ class Config:
 	key = ''
 	# Sound format in .mp3, even better if in .ogg
 	sound_path = 'duck-double.ogg'
-	# allowed channel
+	sounds = {
+		"train": [
+			"sounds/start_knop.wav",
+			"sounds/brno_krpole.wav",
+			"sounds/end_knop.wav"
+			],
+		"knock": [
+			"sounds/knock.wav",
+			"sounds/harry_jdu_do_baraku.wav",
+			"sounds/knock.wav"
+			],
+		"poezie": [
+			"sounds/poezie.wav",
+			]
+		}
 	wait_time = 3600 # 1 second
 	#IsKachnaOpen
 	is_kachna_open: str = 'https://www.su.fit.vutbr.cz/kachna/api/states/current'
