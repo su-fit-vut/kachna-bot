@@ -1,11 +1,10 @@
 import discord
 from pygame import mixer
 from config import Config
-import datetime
+import datetime, time
 from iskachnaopen import IsKachnaOpen
 import helper
 import logging
-
 
 class Bot(discord.Client):
     def __init__(self):
@@ -29,6 +28,24 @@ class Bot(discord.Client):
             return
 
         logging.info(f"Incoming message from {message.author}.")
+        
+        # Recognize sound in message
+        for sound_key in Config.sounds:
+            if sound_key in message.content:
+                if sound_key == "train":
+                    await message.add_reaction('🚂')
+                elif sound_key == "knock":
+                    await message.add_reaction("🔔")
+                else:
+                    await message.add_reaction('☑️')
+                logging.info("Playing sounds")
+                ch = mixer.Channel(0)
+                for s in Config.sounds[sound_key]:
+                    while ch.get_queue():
+                        time.sleep(1)
+                    ch.queue(mixer.Sound(s))
+                return
+
         next_available_call_at = self.wait_time + datetime.timedelta(seconds=Config.wait_time)
         if next_available_call_at > datetime.datetime.utcnow():
             await message.add_reaction('❌')
