@@ -2,7 +2,7 @@ class Config:
     # Discord bot token
 	key = ''
 	# Sound format in .mp3, even better if in .ogg
-	sound_path = 'duck-double.ogg'
+	sound_path = 'sounds/duck-double.ogg'
 	sounds = {
 		"train": [
 			"sounds/start_knop.wav",

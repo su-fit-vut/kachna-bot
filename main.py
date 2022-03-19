@@ -1,6 +1,7 @@
 import logging
 from client import Bot
 from config import Config
+from doorbell import Doorbell
 
 if __name__ == "__main__":
     try:
@@ -8,6 +9,7 @@ if __name__ == "__main__":
 
         logging.info("Creating bot")
         bot = Bot()
+        bot.add_cog(Doorbell(bot))
 
         logging.info("Starting bot")
         bot.run(Config.key)
