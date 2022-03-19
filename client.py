@@ -1,4 +1,5 @@
 import disnake
+from disnake.ext import commands
 from pygame import mixer
 from config import Config
 import datetime, time
@@ -6,16 +7,12 @@ from iskachnaopen import IsKachnaOpen
 import helper
 import logging
 
-class Bot(disnake.Client):
+class Bot(commands.Bot):
     def __init__(self):
         super().__init__()
 
         logging.info("Initializing pygame mixer")
         mixer.init()
-
-        logging.info("Creating sound object")
-        self.sound = mixer.Sound(Config.sound_path)
-        self.wait_time = datetime.datetime.utcnow() - datetime.timedelta(seconds=Config.wait_time)
 
     async def on_message(self, message):
         # Pokud uzivatel je bot, nebo jeste timeout pro klid mezi zvonenim, nebo je kachna otevrena
@@ -27,6 +24,7 @@ class Bot(disnake.Client):
         ):
             return
 
+        return
         logging.info(f"Incoming message from {message.author}.")
         
         # Recognize sound in message
@@ -45,21 +43,3 @@ class Bot(disnake.Client):
                         time.sleep(1)
                     ch.queue(mixer.Sound(s))
                 return
-
-        next_available_call_at = self.wait_time + datetime.timedelta(seconds=Config.wait_time)
-        if next_available_call_at > datetime.datetime.utcnow():
-            await message.add_reaction('❌')
-            next_call_at = helper.utc_to_local_time(next_available_call_at)
-            await message.channel.send('Někdo jiný už před tebou zazvonil. Další zazvonění bude možné v: ' +
-                                       f'**{helper.datetime_to_local_string(next_call_at)}**')
-            return
-
-        if not IsKachnaOpen.is_closed():
-            await message.add_reaction('❌')
-            await message.channel.send('Kachna je otevřená a měl by mít volný průchod.')
-            return
-
-        self.wait_time = datetime.datetime.utcnow()
-        await message.add_reaction('✅')
-        logging.info("Playing sound")
-        self.sound.play()
