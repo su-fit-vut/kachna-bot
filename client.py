@@ -1,4 +1,4 @@
-import discord
+import disnake
 from pygame import mixer
 from config import Config
 import datetime, time
@@ -6,7 +6,7 @@ from iskachnaopen import IsKachnaOpen
 import helper
 import logging
 
-class Bot(discord.Client):
+class Bot(disnake.Client):
     def __init__(self):
         super().__init__()
 
@@ -23,7 +23,7 @@ class Bot(discord.Client):
 
         if (
             message.author.bot
-            or not (isinstance(message.channel, discord.DMChannel) or self.user in message.mentions)
+            or not (isinstance(message.channel, disnake.DMChannel) or self.user in message.mentions)
         ):
             return
 
