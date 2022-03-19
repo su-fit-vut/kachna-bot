@@ -1,5 +1,5 @@
 python-dateutil
 wheel
-discord.py
+disnake
 pygame
 requests
