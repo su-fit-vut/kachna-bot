@@ -32,5 +32,5 @@ class Doorbell(commands.Cog):
 
         self.wait_time = datetime.datetime.utcnow()
         logging.info("Playing sound")
-        self.sound.play()
         await inter.response.send_message('✅')
+        self.sound.play()
