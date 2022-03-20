@@ -3,3 +3,4 @@ wheel
 disnake
 pygame
 requests
+spotipy
