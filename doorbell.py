@@ -3,7 +3,7 @@ from disnake.ext import commands
 from config import Config
 from pygame import mixer
 import datetime
-from iskachnaopen import IsKachnaOpen
+from kachnaonline import KachnaOnline
 import helper
 import logging
 
@@ -26,7 +26,7 @@ class Doorbell(commands.Cog):
                                        f'**{helper.datetime_to_local_string(next_call_at)}**')
             return
 
-        if not IsKachnaOpen.is_closed():
+        if not KachnaOnline.is_closed():
             await inter.response.send_message('Kachna je otevřená a měl by mít volný průchod.')
             return
 
