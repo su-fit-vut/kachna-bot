@@ -54,7 +54,7 @@ class Config:
 	]
 	
 	# Time to wait in seconds
-	wait_time = 3600
+	wait_time = 180 # 3 minutes
 
 	# KachnaOnline API
 	is_kachna_open: str = "https://www.su.fit.vutbr.cz/kachna/api/states/current"
