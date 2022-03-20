@@ -1,23 +1,60 @@
+from sound import Sound
+
 class Config:
     # Discord bot token
 	key = ''
+
+	# Spotify
+	spotify_client_id = ""
+	spotify_client_secret = ""
+	spotify_redirect_uri = "http://127.0.0.1:6969"
+	spotify_scope = "user-modify-playback-state"
+
 	# Sound format in .mp3, even better if in .ogg
-	sound_path = 'sounds/duck-double.ogg'
-	sounds = {
-		"train": [
-			"sounds/start_knop.wav",
-			"sounds/brno_krpole.wav",
-			"sounds/end_knop.wav"
+	sound_path = "sounds/duck-double.ogg"
+	sounds = [
+		Sound(
+			name = "train",
+			files = [
+				"sounds/start_knop.wav",
+				"sounds/brno_krpole.wav",
+				"sounds/end_knop.wav"
 			],
-		"knock": [
-			"sounds/knock.wav",
-			"sounds/harry_jdu_do_baraku.wav",
-			"sounds/knock.wav"
+			emote = "🚂"
+		),
+		Sound(
+			name = "knock",
+			files = [
+				"sounds/knock.wav",
+				"sounds/harry_jdu_do_baraku.wav",
+				"sounds/knock.wav"
 			],
-		"poezie": [
-			"sounds/poezie.wav",
+			emote = "🔔"
+		),
+		Sound(
+			name = "poezie",
+			files = [
+				"sounds/poezie.wav",
+			],
+			emote = "📖"
+		),
+		Sound(
+			name = "gn",
+			files = [
+				"sounds/vecernicek.wav"
+			],
+			emote = ":night_with_stars: :last_quarter_moon_with_face:"
+		),
+		Sound(
+			name = "fbi",
+			files = [
+				"sounds/fbi.wav"
 			]
-		}
-	wait_time = 3600 # 1 second
-	#IsKachnaOpen
-	is_kachna_open: str = 'https://www.su.fit.vutbr.cz/kachna/api/states/current'
+		)
+	]
+	
+	# Time to wait in seconds
+	wait_time = 3600
+
+	# KachnaOnline API
+	is_kachna_open: str = "https://www.su.fit.vutbr.cz/kachna/api/states/current"

@@ -26,18 +26,31 @@ class Music(commands.Cog):
             )
         )
     
-    async def autocomp_langs(inter: disnake.ApplicationCommandInteraction, user_input: str):
-        return [sound for sound in Config.sounds if user_input.lower() in sound]
+    async def autocomp_songs(
+        inter: disnake.ApplicationCommandInteraction,
+        user_input: str
+        ):
+        sounds_names = []
+        for s in Config.sounds:
+            sounds_names.append(s.name)
+        return [sound for sound in sounds_names if user_input.lower() in sound]
     
     @commands.slash_command(description="Přehaj krátký zvuk v Kachně.")
     async def play(
         self,
         inter: disnake.ApplicationCommandInteraction,
-        sound: str = commands.Param(name="sound")
+        sound: str = commands.Param(name="sound", autocomplete=autocomp_songs)
         ):
         """Play short sound in student club"""
         
-        await inter.response.send_message('✅')
+        sounds_names = ""
+        for s in Config.sounds:
+            sounds_names += f"- {s.name}\n"
+            if sound.lower() == s.name.lower():
+                await inter.response.send_message(str(s.emote))
+                return s.play()
+        
+        await inter.response.send_message(f"Tento zvuk ještě neumím zahrát, zkus něco z těchto:\n{sounds_names[:-1]}")
 
     @commands.slash_command(description="Přidat písničku do Spotify fronty.")
     async def add_to_queue(
