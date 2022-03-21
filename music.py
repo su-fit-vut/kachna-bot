@@ -47,11 +47,11 @@ class Music(commands.Cog):
         """Play short sound in student club"""
         
         sounds_names = ""
-        for sound in Config.sounds:
+        for sound_from_config in Config.sounds:
             sounds_names += f"- {sound.name}\n"
-            if sound.lower() == sound.name.lower():
-                await inter.response.send_message(str(sound.emote))
-                return sound.play()
+            if sound.lower() == sound_from_config.name.lower():
+                await inter.response.send_message(str(sound_from_config.emote))
+                return sound_from_config.play()
         
         await inter.response.send_message(f"Tento zvuk ještě neumím zahrát, zkus něco z těchto:\n{sounds_names[:-1]}")
 
