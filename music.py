@@ -55,19 +55,37 @@ class Music(commands.Cog):
         
         await inter.response.send_message(f"Tento zvuk ještě neumím zahrát, zkus něco z těchto:\n{sounds_names[:-1]}")
 
-    @commands.slash_command(description="Přidat písničku do Spotify fronty.")
-    async def add_to_queue(
+    @commands.slash_command()
+    async def spotify(
+        self,
+        inter: disnake.ApplicationCommandInteraction,
+    ):
+        pass
+
+    @spotify.sub_command_group()
+    async def queue(
+        self,
+        inter: disnake.ApplicationCommandInteraction,
+    ):
+        pass
+
+    @queue.sub_command(description="Přidat písničku do Spotify fronty.")
+    async def add(
         self,
         inter: disnake.ApplicationCommandInteraction,
         track_id: str = commands.Param(name="song_url")
     ):
-        """Add song to queue"""
+        """
+        Parameters
+        ----------
+        track_id: ID skladby na Spotify
+        """
 
         self.spotify.add_to_queue(track_id)
         track = self.spotify.track(track_id)
         embed = disnake.Embed(
-            title = "Song queued. ✅",
-            description = f"Successfully added track \"{track['name']}\" to queue.",
+            title = "Skladba přidána do fronty. ✅",
+            description = f"Písnička \"{track['name']}\" byla úspěšně zařazena na konec fronty.",
             color = 0x1DB954
             )
         embed.set_thumbnail(url=track["album"]["images"][0]["url"])
