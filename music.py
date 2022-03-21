@@ -48,7 +48,7 @@ class Music(commands.Cog):
         
         sounds_names = ""
         for sound_from_config in Config.sounds:
-            sounds_names += f"- {sound.name}\n"
+            sounds_names += f"- {sound_from_config.name}\n"
             if sound.lower() == sound_from_config.name.lower():
                 await inter.response.send_message(str(sound_from_config.emote))
                 return sound_from_config.play()
