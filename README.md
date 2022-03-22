@@ -7,12 +7,13 @@
 * sdl
 * sdl-mixer
 * portmidi
+* ffmpeg
 
 Na manjaru radši: `sudo pacman -S python-pygame`
 
 ## Setup
 ```sh
-sudo apt install python3-pip
+sudo apt install python3-pip ffmpeg
 pip3 install -r requirements.txt
 python main.py
 mkdir -p ~monitor/.config/systemd/user/multi-user.target.wants/
