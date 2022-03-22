@@ -4,3 +4,4 @@ disnake
 pygame
 requests
 spotipy
+pydub
