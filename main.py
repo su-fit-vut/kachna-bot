@@ -3,6 +3,7 @@ from client import Bot
 from config import Config
 from doorbell import Doorbell
 from music import Music
+from toasts import Toasts
 
 if __name__ == "__main__":
     try:
@@ -12,6 +13,7 @@ if __name__ == "__main__":
         bot = Bot()
         bot.add_cog(Doorbell(bot))
         bot.add_cog(Music(bot))
+        bot.add_cog(Toasts(bot))
 
         logging.info("Starting bot")
         bot.run(Config.key)
