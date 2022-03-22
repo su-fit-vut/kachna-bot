@@ -12,6 +12,7 @@ class Config:
 
 	# Sound format in .mp3, even better if in .ogg
 	sound_path = "sounds/duck-double.ogg"
+	toasts_sounds_path = "./sounds/toasts"
 	sounds = [
 		Sound(
 			name = "train",
