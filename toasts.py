@@ -6,8 +6,18 @@ from os import walk
 from sound import Sound
 import requests
 from pydub import AudioSegment
+from spotify import Spotify
+import time
+
 
 class Toasts(commands.Cog):
+    def __init__(
+        self,
+        bot
+    ):
+        self.bot = bot
+        self.spotify = Spotify()
+
     @commands.slash_command(description="Vyhlásí tousty.")
     async def toasts(
         self,
@@ -19,6 +29,8 @@ class Toasts(commands.Cog):
         ----------
         number: číslo volaných toustů
         """
+        # Send response message
+        await inter.response.send_message(":thinking: :sandwich:")
 
         local_toast_files = []
         for (dirpath, dirnames, filenames) in walk(Config.toasts_sounds_path):
@@ -34,15 +46,33 @@ class Toasts(commands.Cog):
             )
             open(f"{Config.toasts_sounds_path}/{full_filename[:-4]}.mp3", 'wb').write(request.content)
 
-            # convert wav to mp3                                                            
+            # convert wav to mp3
             sound = AudioSegment.from_mp3(f"{Config.toasts_sounds_path}/{full_filename[:-4]}.mp3")
             sound.export(f"{Config.toasts_sounds_path}/{full_filename}", format="wav")
-        
+
         sound_to_play = Sound(
-            name = text,
-            files = [
+            name=text,
+            files=[
                 f"{Config.toasts_sounds_path}/{full_filename}"
             ]
         )
+
+        # Spotify pause playback
+        self.spotify.stop_playback_if_playing()
+
+        # Update message
+        await inter.edit_original_message(
+            content=":speaking_head: :sandwich:"
+        )
+
+        # Play the sound
         sound_to_play.play()
-        await inter.response.send_message(":speaking_head: :sandwich:")
+        time.sleep(5)
+
+        # Spotify start playback
+        self.spotify.start_playback_if_stopped()
+
+        # Update message
+        await inter.edit_original_message(
+            content=f":white_check_mark: :sandwich: {number}"
+        )
