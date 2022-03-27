@@ -1,7 +1,6 @@
 import disnake
 from disnake.ext import commands
 from config import Config
-from pygame import mixer
 from os import walk
 from sound import Sound
 import requests
@@ -16,7 +15,6 @@ class Toasts(commands.Cog):
         bot
     ):
         self.bot = bot
-        self.spotify = Spotify()
 
     @commands.slash_command(description="Vyhlásí tousty.")
     async def toasts(
@@ -57,20 +55,13 @@ class Toasts(commands.Cog):
             ]
         )
 
-        # Spotify pause playback
-        self.spotify.stop_playback_if_playing()
-
         # Update message
         await inter.edit_original_message(
             content=":speaking_head: :sandwich:"
         )
 
         # Play the sound
-        sound_to_play.play()
-        time.sleep(5)
-
-        # Spotify start playback
-        self.spotify.start_playback_if_stopped()
+        sound_to_play.play_fade_out()
 
         # Update message
         await inter.edit_original_message(

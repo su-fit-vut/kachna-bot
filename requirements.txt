@@ -1,7 +1,7 @@
 python-dateutil
 wheel
 disnake
-pygame
+playsound
 requests
 spotipy
 pydub

@@ -1,29 +1,40 @@
-from pygame import mixer
+from playsound import playsound
 import time
-import json
+from spotify import Spotify
+
 
 class Sound():
-    def __init__(self, name, files, emote=None, schedule=None):
+    def __init__(
+        self,
+        name,
+        files,
+        emote=None
+    ):
         self.name = name
         self.files = files
         self.emote = (emote if emote != None else "☑️")
-        self.schedule = schedule
-        mixer.init()
-        self.ch = mixer.Channel(0)
+        self.spotify = spotipy.Spotify()
 
-    async def react_on_message(self, message):
-        return await message.add_reaction(self.emote)
-    
-    async def play_and_react(self, message):
+    def play(
+        self
+    ):
+        for file in self.files:
+            playsound(file)
+
+    def play_fade_out(
+        self
+    ):
+        """
+        Play sound with fade in and fade out.
+        """
+
+        current_playback = self.spotify.current_playback()
+        print(current_playback)
+
+        for i in range(asdf):
+            # Spotify volume
+            self.spotify.spotify.volume(10)
+            time.sleep(0.250)
+
         self.play()
-        await self.react_on_message(message)
-
-    def play(self):
-        for s in self.files:
-            while self.ch.get_queue():
-                time.sleep(1)
-            self.ch.queue(mixer.Sound(s))
-
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=4)
+        self.spotify.spotify.volume(100)

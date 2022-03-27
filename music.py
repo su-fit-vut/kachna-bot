@@ -1,7 +1,7 @@
 import disnake
 from disnake.ext import commands
 from config import Config
-from pygame import mixer
+from sound import Sound
 import datetime
 import helper
 import logging
@@ -17,9 +17,6 @@ class Music(commands.Cog):
         self.bot = bot
         self._last_member = None
         self.spotify = Spotify()
-
-        logging.info("Creating sound object")
-        self.sound = mixer.Sound(Config.sound_path)
         self.wait_time = datetime.datetime.utcnow() - datetime.timedelta(seconds=Config.wait_time)
 
     async def autocomp_songs(
