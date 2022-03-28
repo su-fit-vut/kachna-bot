@@ -81,6 +81,7 @@ class Music(commands.Cog):
         """
         await inter.response.defer()
 
+        logging.info("Adding track to Spotify queue.")
         Config.spotify.add_to_queue(track_id)
         track = Config.spotify.track(track_id)
         embed = disnake.Embed(

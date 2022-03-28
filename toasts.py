@@ -28,6 +28,7 @@ class Toasts(commands.Cog):
         """
         await inter.response.defer()
 
+        logging.info(f"Going to declare toasts {number}")
         full_filename = f"tousty_cislo_{number}.wav"
         text = f"Toasty číslo {number}"
         if not exists(full_filename):

@@ -30,6 +30,7 @@ class Doorbell(commands.Cog):
         """Rings in students' club"""
         await inter.response.defer()
 
+        logging.info("Going to ring in the club if can")
         # Check if somebody did not ring before you
         next_available_call_at = self.wait_time + datetime.timedelta(seconds=Config.wait_time)
         if next_available_call_at > datetime.datetime.utcnow():
