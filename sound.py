@@ -30,14 +30,15 @@ class Sound():
         Play sound with fade in and fade out.
         """
 
+        # Get volume of playback if any
         current_playback = self.spotify.current_playback()
-        if current_playback == None:
+        if current_playback is None:
             self.play()
             return
-        if current_playback["device"] == None:
+        if current_playback["device"] is None:
             self.play()
             return
-        if current_playback["device"]["volume_percent"] == None:
+        if current_playback["device"]["volume_percent"] is None:
             self.play()
             return
         volume = current_playback["device"]["volume_percent"]
