@@ -1,7 +1,7 @@
 import disnake
 from disnake.ext import commands
 from config import Config
-from os import walk
+from os.path import exists
 from sound import Sound
 import requests
 from pydub import AudioSegment
@@ -28,14 +28,9 @@ class Toasts(commands.Cog):
         """
         await inter.response.defer()
 
-        local_toast_files = []
-        for (dirpath, dirnames, filenames) in walk(Config.toasts_sounds_path):
-            local_toast_files.extend(filenames)
-            break
-
         full_filename = f"tousty_cislo_{number}.wav"
         text = f"Toasty číslo {number}"
-        if full_filename not in local_toast_files:
+        if not exists(full_filename):
             # If file is not in local directory create it
             request = requests.get(
                 f"https://translate.google.com/translate_tts?ie=UTF-8&tl=cs-CZ&client=tw-ob&q={requests.utils.quote(text)}"
