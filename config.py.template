@@ -6,11 +6,11 @@ from spotipy.oauth2 import SpotifyOAuth
 class Config:
     # Spotify
     spotify = spotipy.Spotify(
-        client_credentials_manager=SpotifyOAuth(
+        auth_manager=SpotifyOAuth(
             client_id="",
             client_secret="",
             redirect_uri="http://127.0.0.1:6969",
-            scope="user-modify-playback-state",
+            scope="user-read-playback-state user-modify-playback-state",
         )
     )
     # https://developer.spotify.com/documentation/general/guides/authorization/scopes/
@@ -68,5 +68,5 @@ class Config:
         )
     ]
     wait_time = 180 # in seconds
-    # IsKachnaOpen
+    # KachnaOnline
     is_kachna_open: str = "https://www.su.fit.vutbr.cz/kachna/api/states/current"
