@@ -6,7 +6,7 @@ def utc_to_local_time(utc_datetime):
 
 
 def datetime_to_local_string(dt) -> str:
-    return dt.strftime('%d. %m. %Y %H:%M:%S')
+    return dt.strftime("%d. %m. %Y %H:%M:%S")
 
 
 def datetime_to_iso_string(dt) -> str:

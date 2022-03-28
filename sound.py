@@ -1,6 +1,6 @@
 from playsound import playsound
+import logging
 import time
-from spotify import Spotify
 
 
 class Sound():
@@ -8,16 +8,18 @@ class Sound():
         self,
         name,
         files,
+        spotify,
         emote=None
     ):
         self.name = name
         self.files = files
         self.emote = (emote if emote != None else "☑️")
-        self.spotify = spotipy.Spotify()
+        self.spotify = spotify
 
     def play(
         self
     ):
+        logging.info(f"Playing sound \"{self.name}\"")
         for file in self.files:
             playsound(file)
 
@@ -29,12 +31,27 @@ class Sound():
         """
 
         current_playback = self.spotify.current_playback()
-        print(current_playback)
+        if current_playback == None:
+            self.play()
+            return
+        if current_playback["device"] == None:
+            self.play()
+            return
+        if current_playback["device"]["volume_percent"] == None:
+            self.play()
+            return
+        volume = current_playback["device"]["volume_percent"]
 
-        for i in range(asdf):
-            # Spotify volume
-            self.spotify.spotify.volume(10)
+        logging.info("Fade in")
+        for i in range(volume, 10, -8):
+            self.spotify.volume(i)
             time.sleep(0.250)
 
         self.play()
-        self.spotify.spotify.volume(100)
+
+        logging.info("Fade out")
+        for i in range(10, volume, 8):
+            self.spotify.volume(i)
+            time.sleep(0.250)
+        self.spotify.volume(volume)
+        return
