@@ -69,4 +69,4 @@ class Config:
     ]
     wait_time = 180 # in seconds
     # KachnaOnline
-    is_kachna_open: str = "https://www.su.fit.vutbr.cz/kachna/api/states/current"
+    kachnaonline_url: str = "https://www.su.fit.vutbr.cz/kachna/api/states/current"

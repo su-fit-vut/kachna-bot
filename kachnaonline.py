@@ -20,5 +20,5 @@ class KachnaOnline:
 
     @staticmethod
     def get_state() -> str:
-        request = requests.get(Config.is_kachna_open, stream=True)
+        request = requests.get(Config.kachnaonline_url, stream=True)
         return dict(json.loads(request.content))["state"]
