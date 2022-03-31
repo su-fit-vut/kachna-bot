@@ -6,6 +6,7 @@ from sound import Sound
 import requests
 from pydub import AudioSegment
 import time
+import logging
 
 
 class Toasts(commands.Cog):
