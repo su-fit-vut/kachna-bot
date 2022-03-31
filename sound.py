@@ -1,29 +1,58 @@
-from pygame import mixer
+from playsound import playsound
+import logging
 import time
-import json
+
 
 class Sound():
-    def __init__(self, name, files, emote=None, schedule=None):
+    def __init__(
+        self,
+        name,
+        files,
+        spotify,
+        emote=None
+    ):
         self.name = name
         self.files = files
         self.emote = (emote if emote != None else "☑️")
-        self.schedule = schedule
-        mixer.init()
-        self.ch = mixer.Channel(0)
+        self.spotify = spotify
 
-    async def react_on_message(self, message):
-        return await message.add_reaction(self.emote)
-    
-    async def play_and_react(self, message):
+    def play(
+        self
+    ):
+        logging.info(f"Playing sound \"{self.name}\"")
+        for file in self.files:
+            playsound(file)
+
+    def play_fade_out(
+        self
+    ):
+        """
+        Play sound with fade in and fade out.
+        """
+
+        # Get volume of playback if any
+        current_playback = self.spotify.current_playback()
+        if current_playback is None:
+            self.play()
+            return
+        if current_playback["device"] is None:
+            self.play()
+            return
+        if current_playback["device"]["volume_percent"] is None:
+            self.play()
+            return
+        volume = current_playback["device"]["volume_percent"]
+
+        logging.info("Fade in")
+        for i in range(volume, 10, -8):
+            self.spotify.volume(i)
+            time.sleep(0.250)
+
         self.play()
-        await self.react_on_message(message)
 
-    def play(self):
-        for s in self.files:
-            while self.ch.get_queue():
-                time.sleep(1)
-            self.ch.queue(mixer.Sound(s))
-
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=4)
+        logging.info("Fade out")
+        for i in range(10, volume, 8):
+            self.spotify.volume(i)
+            time.sleep(0.250)
+        self.spotify.volume(volume)
+        return

@@ -1,61 +1,72 @@
 from sound import Sound
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+
 
 class Config:
+    # Spotify
+    spotify = spotipy.Spotify(
+        auth_manager=SpotifyOAuth(
+            client_id="",
+            client_secret="",
+            redirect_uri="http://127.0.0.1:6969",
+            scope="user-read-playback-state user-modify-playback-state",
+        )
+    )
+    # https://developer.spotify.com/documentation/general/guides/authorization/scopes/
+
     # Discord bot token
-	key = ''
+    key = ""
 
-	# Spotify
-	spotify_client_id = ""
-	spotify_client_secret = ""
-	spotify_redirect_uri = "http://127.0.0.1:6969"
-	spotify_scope = "user-modify-playback-state"
-
-	# Sound format in .mp3, even better if in .ogg
-	sound_path = "sounds/duck-double.ogg"
-	toasts_sounds_path = "./sounds/toasts"
-	sounds = [
-		Sound(
-			name = "train",
-			files = [
-				"sounds/start_knop.wav",
-				"sounds/brno_krpole.wav",
-				"sounds/end_knop.wav"
-			],
-			emote = "🚂"
-		),
-		Sound(
-			name = "knock",
-			files = [
-				"sounds/knock.wav",
-				"sounds/harry_jdu_do_baraku.wav",
-				"sounds/knock.wav"
-			],
-			emote = "🔔"
-		),
-		Sound(
-			name = "poezie",
-			files = [
-				"sounds/poezie.wav",
-			],
-			emote = "📖"
-		),
-		Sound(
-			name = "gn",
-			files = [
-				"sounds/vecernicek.wav"
-			],
-			emote = ":night_with_stars: :last_quarter_moon_with_face:"
-		),
-		Sound(
-			name = "fbi",
-			files = [
-				"sounds/fbi.wav"
-			]
-		)
-	]
-	
-	# Time to wait in seconds
-	wait_time = 180 # 3 minutes
-
-	# KachnaOnline API
-	is_kachna_open: str = "https://www.su.fit.vutbr.cz/kachna/api/states/current"
+    # Sound format in .mp3, even better if in .ogg
+    sound_path = "sounds/duck-double.ogg"
+    toasts_sounds_path = "./sounds/toasts"
+    sounds = [
+        Sound(
+            name="train",
+            files=[
+                "sounds/start_knop.wav",
+                "sounds/brno_krpole.wav",
+                "sounds/end_knop.wav"
+            ],
+            emote="🚂",
+            spotify=spotify
+        ),
+        Sound(
+            name="knock",
+            files=[
+                "sounds/knock.wav",
+                "sounds/harry_jdu_do_baraku.wav",
+                "sounds/knock.wav"
+            ],
+            emote="🔔",
+            spotify=spotify
+        ),
+        Sound(
+            name="poezie",
+            files=[
+                "sounds/poezie.wav",
+            ],
+            emote="📖",
+            spotify=spotify
+        ),
+        Sound(
+            name="gn",
+            files=[
+                "sounds/vecernicek.wav"
+            ],
+            emote=":night_with_stars: :last_quarter_moon_with_face:",
+            spotify=spotify
+        ),
+        Sound(
+            name="fbi",
+            files=[
+                "sounds/fbi.wav"
+            ],
+            emote=":police_car: :man_police_officer:",
+            spotify=spotify
+        )
+    ]
+    wait_time = 180 # in seconds
+    # KachnaOnline
+    kachnaonline_url: str = "https://www.su.fit.vutbr.cz/kachna/api/states/current"

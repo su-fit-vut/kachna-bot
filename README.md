@@ -1,16 +1,5 @@
 # KachnaBot
 
-## Závislosti
-
-* python3
-* pip3
-* sdl
-* sdl-mixer
-* portmidi
-* ffmpeg
-
-Na manjaru radši: `sudo pacman -S python-pygame`
-
 ## Setup
 ```sh
 sudo apt install python3-pip ffmpeg
