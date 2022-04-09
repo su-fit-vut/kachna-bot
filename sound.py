@@ -38,6 +38,15 @@ class Sound():
         if current_playback["device"] is None:
             self.play()
             return
+        if current_playback["device"]["type"] == "Smartphone":
+            resume = False
+            if current_playback["is_playing"]:
+                self.spotify.pause_playback()
+                resume = True
+            self.play()
+            if resume:
+                self.spotify.start_playback()
+            return
         if current_playback["device"]["volume_percent"] is None:
             self.play()
             return
