@@ -32,6 +32,8 @@ class Toasts(commands.Cog):
         logging.info(f"Going to declare toasts {number}")
         full_filename = f"tousty_cislo_{number}.wav"
         text = f"Toasty číslo {number}"
+        if number == "69":
+            text = f"Toasty číslo 69    Naaajssss"
         if not exists(full_filename):
             # If file is not in local directory create it
             request = requests.get(
