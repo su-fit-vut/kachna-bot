@@ -5,3 +5,4 @@ playsound
 requests
 spotipy
 pydub
+pynacl
