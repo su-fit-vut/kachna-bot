@@ -13,7 +13,7 @@ class Sound():
     ):
         self.name = name
         self.files = files
-        self.emote = (emote if emote != None else "☑️")
+        self.emote = (emote if emote is not None else "☑️")
         self.spotify = spotify
 
     def play(
