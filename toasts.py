@@ -25,11 +25,11 @@ class Toasts(commands.Cog):
             name="number",
             description="číslo volaných toustů"
         ),
-        recipient: str = commands.Param(
-            name="recipient",
-            description="jméno příjemce volaných toustů",
-            default=None
-        ),
+        # recipient: str = commands.Param(
+        #     name="recipient",
+        #     description="jméno příjemce volaných toustů",
+        #     default=None
+        # ),
         lang: str = commands.Param(
             name="language",
             description="jazyk pro vyhlášení toustů",
@@ -37,11 +37,6 @@ class Toasts(commands.Cog):
             choices=["cs-CZ", "en-US"]
         )
     ):
-        """
-        Parameters
-        ----------
-        number: číslo volaných toustů
-        """
         await inter.response.defer()
 
         logging.info(f"Going to declare toasts {number}")
