@@ -19,8 +19,17 @@ class Toasts(commands.Cog):
     async def toasts(
         self,
         inter: disnake.ApplicationCommandInteraction,
-        number: int = commands.Param(ge=0, le=100, name="number", description="číslo volaných toustů"),
-        recipient: str = commands.Param(name="recipient", description="jméno příjemce volaných toustů"),
+        number: int = commands.Param(
+            ge=0,
+            le=200,
+            name="number",
+            description="číslo volaných toustů"
+        ),
+        recipient: str = commands.Param(
+            name="recipient",
+            description="jméno příjemce volaných toustů",
+            default=None
+        ),
         lang: str = commands.Param(
             name="language",
             description="jazyk pro vyhlášení toustů",
