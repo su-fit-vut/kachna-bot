@@ -5,7 +5,6 @@ from os.path import exists
 from sound import Sound
 import requests
 from pydub import AudioSegment
-import time
 import logging
 
 
@@ -20,24 +19,37 @@ class Toasts(commands.Cog):
     async def toasts(
         self,
         inter: disnake.ApplicationCommandInteraction,
-        number: str = commands.Param(name="number")
+        number: int = commands.Param(
+            ge=0,
+            le=200,
+            name="number",
+            description="číslo volaných toustů"
+        ),
+        # recipient: str = commands.Param(
+        #     name="recipient",
+        #     description="jméno příjemce volaných toustů",
+        #     default=None
+        # ),
+        lang: str = commands.Param(
+            name="language",
+            description="jazyk pro vyhlášení toustů",
+            default="cs-CZ",
+            choices=["cs-CZ", "en-US"]
+        )
     ):
-        """
-        Parameters
-        ----------
-        number: číslo volaných toustů
-        """
         await inter.response.defer()
 
         logging.info(f"Going to declare toasts {number}")
         full_filename = f"tousty_cislo_{number}.wav"
         text = f"Toasty číslo {number}"
         if number == "69":
-            text = f"Toasty číslo 69    Naaajssss"
+            text = "Toasty číslo 69    Naaajssss"
+            lang = "cs-CZ"
         if not exists(full_filename):
             # If file is not in local directory create it
+            q = requests.utils.quote(text)
             request = requests.get(
-                f"https://translate.google.com/translate_tts?ie=UTF-8&tl=cs-CZ&client=tw-ob&q={requests.utils.quote(text)}"
+                f"https://translate.google.com/translate_tts?ie=UTF-8&tl={lang}&client=tw-ob&q={q}"
             )
             open(f"{Config.toasts_sounds_path}/{full_filename[:-4]}.mp3", "wb").write(request.content)
 
