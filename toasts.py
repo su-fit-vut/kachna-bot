@@ -34,17 +34,29 @@ class Toasts(commands.Cog):
             name="language",
             description="jazyk pro vyhlášení toustů",
             default="cs-CZ",
-            choices=["cs-CZ", "en-US"]
+            choices=["cs-CZ", "en-US", "sk-SK"]
         )
     ):
         await inter.response.defer()
 
-        logging.info(f"Going to declare toasts {number}")
-        full_filename = f"tousty_cislo_{number}.wav"
-        text = f"Toasty číslo {number}"
-        if number == "69":
-            text = "Toasty číslo 69    Naaajssss"
-            lang = "cs-CZ"
+        logging.info(f"Going to declare toasts {number} in {lang}.")
+        full_filename = f"toasts-{lang}-{number}.wav"
+        if lang == "cs-CZ":
+            text = f"Toasty číslo {number}"
+            flag_emote = ":flag_cz:"
+            if number == 69:
+                text = "Toasty číslo 69    Naaajssss"
+        elif lang == "en-US":
+            text = f"Toast number {number}"
+            flag_emote = ":flag_us:"
+            if number == 69:
+                text = "Toasts number 69    Nice"
+        elif lang == "sk-SK":
+            text = f"Tousty číslo {number}"
+            flag_emote = ":flag_sk:"
+            if number == 69:
+                text = "Toasty číslo 69    Naajsss"
+
         if not exists(full_filename):
             # If file is not in local directory create it
             q = requests.utils.quote(text)
@@ -70,5 +82,5 @@ class Toasts(commands.Cog):
 
         # Update message
         await inter.followup.send(
-            content=f":white_check_mark: :sandwich: {number}"
+            content=f":white_check_mark: :sandwich: {number} {flag_emote}"
         )
