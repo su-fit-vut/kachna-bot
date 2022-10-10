@@ -150,7 +150,7 @@ class ToastLanguage:
         name: str,
         flag_emote: str,
         default_toasts_text: str,
-        special_toasts_text: str, # 69
+        special_toasts_text: str,  # 69
         recipient_toasts_text: str,
         gone_toasts_text: str,
     ):
