@@ -110,7 +110,7 @@ class Toasts(commands.Cog):
         language = self.get_language_by_name(lang)
 
         # Prepare variables for toasts declaring
-        text = "   "
+        text = ".   "
         if recipient is not None:
             # Recipient way
             logging.info(f"Going to declare toasts for \"{recipient}\" in \"{lang}\".")
