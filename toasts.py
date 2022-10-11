@@ -8,43 +8,63 @@ from pydub import AudioSegment
 import logging
 
 
+class ToastLanguage:
+    def __init__(
+        self,
+        name: str,
+        flag_emote: str,
+        default_toasts_text: str,
+        special_toasts_text: str,  # 69
+        recipient_toasts_text: str,
+        gone_toasts_text: str,
+    ):
+        self.name = name
+        self.flag_emote = flag_emote
+        self.default_toasts_text = default_toasts_text
+        self.special_toasts_text = special_toasts_text
+        self.recipient_toasts_text = recipient_toasts_text
+        self.gone_toasts_text = gone_toasts_text
+
+
+languages = [
+    ToastLanguage(
+        "cs-CZ",
+        ":flag_cz:",
+        "Toasty číslo",
+        "Toasty číslo 69    Naaajssss",
+        "Toasty pro ",
+        "Toasty došly.",
+    ),
+    ToastLanguage(
+        "sk-SK",
+        ":flag_sk:",
+        "Tousty číslo",
+        "Tousty číslo 69    Naaajssss",
+        "Tousty pre ",
+        "Tousty sú v piči.",
+    ),
+    ToastLanguage(
+        "en-US",
+        ":flag_us:",
+        "Toasts number",
+        "Toasts number 69    Nice",
+        "Toasts for",
+        "Toasts are out of stock.",
+    ),
+]
+
+
 class Toasts(commands.Cog):
     def __init__(
         self,
         bot
     ):
         self.bot = bot
-        self.languages = [
-            ToastLanguage(
-                "cs-CZ",
-                ":flag_cz:",
-                "Toasty číslo",
-                "Toasty číslo 69    Naaajssss",
-                "Toasty pro ",
-                "Toasty došly.",
-            ),
-            ToastLanguage(
-                "sk-SK",
-                ":flag_sk:",
-                "Tousty číslo",
-                "Tousty číslo 69    Naaajssss",
-                "Tousty pre ",
-                "Tousty sú v piči.",
-            ),
-            ToastLanguage(
-                "en-US",
-                ":flag_us:",
-                "Toasts number",
-                "Toasts number 69    Nice",
-                "Toasts for",
-                "Toasts are out of stock.",
-            ),
-        ]
 
-    def get_language_names(self):
+    def get_language_names():
         names = []
-        for lang in self.languages:
-            names.add(lang.name)
+        for lang in languages:
+            names.append(lang.name)
         return names
 
     async def autocomp_language_names(
@@ -53,11 +73,11 @@ class Toasts(commands.Cog):
         user_input: str
     ):
         return [
-            lang for lang in self.languages if user_input.lower() in lang.name
+            lang for lang in languages if user_input.lower() in lang.name
         ]
 
     def get_language_by_name(self, name: str):
-        for lang in self.languages:
+        for lang in languages:
             if lang.name == name:
                 return lang
         return None
@@ -81,8 +101,7 @@ class Toasts(commands.Cog):
             name="language",
             description="Jazyk pro vyhlášení toustů",
             default="cs-CZ",
-            choices=get_language_names(),
-            autocomplete=autocomp_language_names
+            choices=get_language_names()
         )
     ):
         await inter.response.defer()
@@ -91,24 +110,25 @@ class Toasts(commands.Cog):
         language = self.get_language_by_name(lang)
 
         # Prepare variables for toasts declaring
+        text = "   "
         if recipient is not None:
             # Recipient way
             logging.info(f"Going to declare toasts for \"{recipient}\" in \"{lang}\".")
             full_filename = f"toasts-for-recipient-{number}.{lang}.wav"
             number = -1
-            text = f"{language.recipient_toasts_text} {recipient}"
+            text += f"{language.recipient_toasts_text} {recipient}"
             response_text = f":arrow_right: \"{recipient}\""
         else:
             # Number way
             logging.info(f"Going to declare toasts {number} in \"{lang}\".")
             full_filename = f"toasts-number-{number}.{lang}.wav"
-            text = f"{language.default_toasts_text} {number}"
+            text += f"{language.default_toasts_text} {number}"
             response_text = str(number)
             if number == 69:
-                text = language.special_toasts_text
+                text += language.special_toasts_text
                 response_text = f"{number} <:nepSmug:827833315822141451>"
             elif number == 0:
-                text = language.gone_toasts_text
+                text += language.gone_toasts_text
                 response_text = f"{language.gone_toasts_text} <:sadcat:576171980118687754>"
 
         # Add flag emote by language to response
@@ -142,16 +162,3 @@ class Toasts(commands.Cog):
         await inter.followup.send(
             content=f":white_check_mark: :sandwich: {response_text}"
         )
-
-
-class ToastLanguage:
-    def __init__(
-        self,
-        name: str,
-        flag_emote: str,
-        default_toasts_text: str,
-        special_toasts_text: str,  # 69
-        recipient_toasts_text: str,
-        gone_toasts_text: str,
-    ):
-        pass
