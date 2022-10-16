@@ -90,7 +90,8 @@ class Toasts(commands.Cog):
             ge=0,
             le=200,
             name="number",
-            description="Číslo volaných toustů"
+            description="Číslo volaných toustů, 0 = došly",
+            default=69
         ),
         recipient: str = commands.Param(
             name="recipient",
