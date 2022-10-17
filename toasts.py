@@ -126,11 +126,11 @@ class Toasts(commands.Cog):
             text += f"{language.default_toasts_text} {number}"
             response_text = str(number)
             if number == 69:
-                text += language.special_toasts_text
+                text = f".   {language.special_toasts_text}"
                 response_text = f"{number} <:nepSmug:827833315822141451>"
             elif number == 0:
-                text += language.gone_toasts_text
-                response_text = f"{language.gone_toasts_text} <:sadcat:576171980118687754>"
+                text = f".   {language.gone_toasts_text}"
+                response_text = f"{language.gone_toasts_text} <:sadIvo:567039959257710592>"
 
         # Add flag emote by language to response
         response_text += f" {language.flag_emote}"
