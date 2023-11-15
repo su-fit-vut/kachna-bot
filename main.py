@@ -21,9 +21,6 @@ if __name__ == "__main__":
         bot.add_cog(Toasts(bot))
         bot.add_cog(Announce(bot))
 
-        logging.info("Starting bot")
-        bot.run(Config.key)
-
         # Load configuration from JSON file
         with open("config.json", "r") as config_file:
             config = json.load(config_file)
@@ -74,5 +71,8 @@ if __name__ == "__main__":
 
         hub_connection.start()
         hub_connection.on_close(lambda: hub_connection.start())
+
+        logging.info("Starting bot")
+        bot.run(Config.key)
     except Exception as e:
         logging.error(str(e))
