@@ -38,8 +38,8 @@ if __name__ == "__main__":
             a = Announce(bot)
             a.order(
                 None,
-                item.number,
-                item.recipient
+                item['number'],
+                item['recipient']
             )
 
 
