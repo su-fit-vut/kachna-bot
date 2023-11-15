@@ -64,8 +64,8 @@ if __name__ == "__main__":
             .build()
         )
 
-        hub_connection.on_open(lambda: print("Connected to the server."))
-        hub_connection.on_reconnect(lambda: print("reconnection in progress"))
+        hub_connection.on_open(lambda: logging.info("Connected to the server."))
+        hub_connection.on_reconnect(lambda: logging.info("reconnection in progress"))
 
         hub_connection.on("ReadyToCollect", announce_ticket)
 
