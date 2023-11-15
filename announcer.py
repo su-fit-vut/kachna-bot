@@ -42,14 +42,12 @@ class Announce(commands.Cog):
             # Recipient way
             logging.info(f"Going to announce order number \"{recipient}\" for \"{recipient}\".")
             full_filename = f"order-for-recipient-{number}.wav"
-            number = -1
             text += f" pro uživatele {recipient}."
             response_text = f":arrow_right: \"{recipient}\""
         else:
             # Number way
             logging.info(f"Going to announce order number \"{recipient}\".")
             full_filename = f"order-for-recipient-{number}.wav"
-            number = -1
             response_text = str(number)
             if number == 69:
                 response_text = f"{number} <:nepSmug:827833315822141451>"
