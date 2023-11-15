@@ -34,12 +34,11 @@ if __name__ == "__main__":
             if len(itemDetails) == 0:
                 return
             item = itemDetails[0]
-            print("PRINT: ", item)
             a = Announce(bot)
             a.order(
                 None,
                 item['number'],
-                item['recipient']
+                item['customerName']
             )
 
 
