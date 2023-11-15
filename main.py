@@ -35,7 +35,7 @@ if __name__ == "__main__":
                 return
             item = itemDetails[0]
             print("PRINT: ", item)
-            a = Announce()
+            a = Announce(bot)
             a.order(
                 None,
                 item.number,
