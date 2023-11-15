@@ -1,0 +1,30 @@
+{
+  "_url_token_endpoint": "OAuth endpoint from which the access token for signalr hub can be obtained",
+  "url_token_endpoint": "https://su-dev.fit.vutbr.cz/connect/token",
+
+  "_url_signalr": "SignalR hub address",
+  "url_signalr": "wss://su-dev.fit.vutbr.cz/food/hub/md",
+
+  "_client_id": "Client ID and secret used to request a access token",
+  "client_id": "kis-food-md-0",
+  "secret": "Wonderful-FIT-Life-Lessons2",
+
+  "_queue_ids": "List of Queue IDs which this printer should print. To print all tickets set to an empty array.",
+  "queue_ids": [1, 2, 3, 4, 5, 6],
+
+  "_connection_params": "Connection parameters passed to the SignalR library",
+  "keep_alive_interval": 5,
+  "reconnect_interval": 10,
+
+  "_printer_params": "Printer configuration, more in README.md",
+  "usb_vendor_id": 1208,
+  "usb_product_id": 3624,
+  "printer_profile": "TM-T20II-42col",
+
+
+  "_logo_path": "File path to the logo",
+  "logo_path": "logo.png",
+
+  "_test_mode": "When test mode is true, a dummy printer device is used for testing without a printer.",
+  "test_mode": false
+}

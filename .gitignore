@@ -59,6 +59,7 @@ docs/_build/
 target/
 
 config.py
+config.json
 .idea
 
 sounds/toasts/
