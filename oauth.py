@@ -14,7 +14,7 @@ with open("config.json", "r") as config_file:
     config = json.load(config_file)
 
 
-def get_oauth_token(scope="kfmd:e"):
+def get_oauth_token(scope="kfm:e"):
     global cached_token, token_expiration
 
     # Check if a cached token exists and is still valid

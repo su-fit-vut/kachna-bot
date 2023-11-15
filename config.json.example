@@ -3,7 +3,7 @@
   "url_token_endpoint": "https://su-dev.fit.vutbr.cz/connect/token",
 
   "_url_signalr": "SignalR hub address",
-  "url_signalr": "wss://su-dev.fit.vutbr.cz/food/hub/md",
+  "url_signalr": "wss://su-dev.fit.vutbr.cz/food/hub/monitor",
 
   "_client_id": "Client ID and secret used to request a access token",
   "client_id": "kis-food-md-0",
