@@ -30,12 +30,12 @@ if __name__ == "__main__":
         keep_alive_interval = config["keep_alive_interval"]
         reconnect_interval = config["reconnect_interval"]
 
-        def announce_ticket(itemDetails):
+        async def announce_ticket(itemDetails):
             if len(itemDetails) == 0:
                 return
             item = itemDetails[0]
             a = Announce(bot)
-            a.order(
+            await a.order(
                 None,
                 item['number'],
                 item['customerName']
