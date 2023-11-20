@@ -1,5 +1,6 @@
 import logging
 import json
+
 from client import Bot
 from config import Config
 from doorbell import Doorbell
@@ -40,6 +41,10 @@ if __name__ == "__main__":
                 item['number'],
                 item['customerName']
             )
+        
+        def create_async_task(itemDetails):
+            logging.info(bot.loop)
+            bot.loop.create_task(announce_ticket(itemDetails))
 
 
         hub_connection = (
@@ -66,7 +71,7 @@ if __name__ == "__main__":
         hub_connection.on_open(lambda: logging.info("Connected to the server."))
         hub_connection.on_reconnect(lambda: logging.info("reconnection in progress"))
 
-        hub_connection.on("ReadyToCollect", announce_ticket)
+        hub_connection.on("ReadyToCollect", create_async_task)
 
         hub_connection.start()
         hub_connection.on_close(lambda: hub_connection.start())
