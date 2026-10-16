@@ -50,7 +50,7 @@ The host needs `paplay` (`pulseaudio-utils` on Debian/Ubuntu) and an active Puls
 
 ## Checks and image publication
 
-CI runs the pinned Ruff pre-commit hook across all tracked files and the available pytest suite. A version tag (`v*`) publishes the GHCR image only after both checks pass. Run the same checks locally with:
+CI runs the pinned Ruff pre-commit hook across all tracked files and the available pytest suite. Every branch push publishes a GHCR image tagged with that branch name (for example, `master` publishes `:master`) after both checks pass. Pull requests do not publish images. Run the same checks locally with:
 
 ```sh
 uv run pre-commit run --all-files

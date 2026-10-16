@@ -34,6 +34,7 @@ jobs:
         run: uv run --no-sync pytest -q
 
   publish-image:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/')
     needs: checks
     runs-on: ubuntu-latest
     permissions:
@@ -59,8 +60,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            type=ref,event=tag
-            type=raw,value=latest
+            type=ref,event=branch
 
       - name: Build and publish image
         uses: docker/build-push-action@v6
