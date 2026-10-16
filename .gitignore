@@ -4,6 +4,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Virtual environments and tool caches
+.venv/
+.pytest_cache/
+.ruff_cache/
+
 # C extensions
 *.so
 
