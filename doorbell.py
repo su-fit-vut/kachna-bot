@@ -1,11 +1,15 @@
+import datetime
+import logging
+
 import disnake
 from disnake.ext import commands
-from config import Config
-from sound import Sound
-import datetime
-from kachnaonline import KachnaOnline
+
 import helper
-import logging
+from config import Config
+from kachnaonline import KachnaOnline
+from sound import Sound
+
+logger = logging.getLogger(__name__)
 
 
 class Doorbell(commands.Cog):
@@ -20,7 +24,7 @@ class Doorbell(commands.Cog):
             files=[Config.sound_path],
             spotify=Config.spotify,
         )
-        self.wait_time = datetime.datetime.utcnow() - datetime.timedelta(seconds=Config.wait_time)
+        self.wait_time = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(seconds=Config.wait_time)
 
     @commands.slash_command(description="Zakvákat v Kachně.")
     async def ring(
@@ -30,10 +34,10 @@ class Doorbell(commands.Cog):
         """Rings in students' club"""
         await inter.response.defer()
 
-        logging.info("Going to ring in the club if can")
+        logger.info("Going to ring in the club if can")
         # Check if somebody did not ring before you
         next_available_call_at = self.wait_time + datetime.timedelta(seconds=Config.wait_time)
-        if next_available_call_at > datetime.datetime.utcnow():
+        if next_available_call_at > datetime.datetime.now(datetime.timezone.utc):
             next_call_at = helper.utc_to_local_time(next_available_call_at)
             await inter.followup.send(
                 content="Někdo jiný už před tebou zazvonil. Další zazvonění bude možné v: " +
@@ -47,7 +51,7 @@ class Doorbell(commands.Cog):
             )
             return
 
-        self.wait_time = datetime.datetime.utcnow()
+        self.wait_time = datetime.datetime.now(datetime.timezone.utc)
         self.sound.play_fade_out()
         await inter.followup.send(
             content=":bell:"

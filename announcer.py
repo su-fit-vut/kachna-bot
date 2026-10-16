@@ -1,12 +1,17 @@
+import asyncio
 import logging
 from os.path import exists
+from pathlib import Path
+
+import disnake
 import requests
+from disnake.ext import commands
+from pydub import AudioSegment
 
 from config import Config
 from sound import Sound
-from pydub import AudioSegment
-import disnake
-from disnake.ext import commands
+
+logger = logging.getLogger(__name__)
 
 
 class Announce(commands.Cog):
@@ -40,13 +45,13 @@ class Announce(commands.Cog):
         text = f".   objednávka číslo {number}"
         if recipient is not None:
             # Recipient way
-            logging.info(f"Going to announce order number \"{recipient}\" for \"{recipient}\".")
+            logger.info('Going to announce order number "%s" for "%s".', recipient, recipient)
             full_filename = f"order-for-recipient-{number}.wav"
             text += f" pro uživatele {recipient}."
             response_text = f":arrow_right: \"{recipient}\""
         else:
             # Number way
-            logging.info(f"Going to announce order number \"{recipient}\".")
+            logger.info('Going to announce order number "%s".', recipient)
             full_filename = f"order-for-recipient-{number}.wav"
             response_text = str(number)
             if number == 69:
@@ -57,10 +62,14 @@ class Announce(commands.Cog):
         # If file is not in local directory create it
         if not exists(full_filename):
             q = requests.utils.quote(text)
-            request = requests.get(
-                f"https://translate.google.com/translate_tts?ie=UTF-8&tl=cs-CZ&client=tw-ob&q={q}"
+            request = await asyncio.to_thread(
+                requests.get,
+                f"https://translate.google.com/translate_tts?ie=UTF-8&tl=cs-CZ&client=tw-ob&q={q}",
             )
-            open(f"{Config.toasts_sounds_path}/{full_filename[:-4]}.mp3", "wb").write(request.content)
+            await asyncio.to_thread(
+                Path(f"{Config.toasts_sounds_path}/{full_filename[:-4]}.mp3").write_bytes,
+                request.content,
+            )
 
             # convert wav to mp3
             sound = AudioSegment.from_mp3(f"{Config.toasts_sounds_path}/{full_filename[:-4]}.mp3")

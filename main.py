@@ -1,21 +1,25 @@
-import logging
 import json
+import logging
 
+from signalrcore.hub_connection_builder import HubConnectionBuilder
+
+from announcer import Announce
 from client import Bot
 from config import Config
 from doorbell import Doorbell
 from music import Music
-from toasts import Toasts
-from announcer import Announce
-from signalrcore.hub_connection_builder import HubConnectionBuilder
+
 # from signalrcore.hub.errors import HubConnectionError
 from oauth import get_oauth_token
+from toasts import Toasts
+
+logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
     try:
         logging.basicConfig(level=logging.INFO, format="%(asctime)s\t%(levelname)s\t%(message)s")
 
-        logging.info("Creating bot")
+        logger.info("Creating bot")
         bot = Bot()
         bot.add_cog(Doorbell(bot))
         bot.add_cog(Music(bot))
@@ -43,7 +47,7 @@ if __name__ == "__main__":
             )
         
         def create_async_task(itemDetails):
-            logging.info(bot.loop)
+            logger.info(bot.loop)
             bot.loop.create_task(announce_ticket(itemDetails))
 
 
@@ -68,15 +72,15 @@ if __name__ == "__main__":
             .build()
         )
 
-        hub_connection.on_open(lambda: logging.info("Connected to the server."))
-        hub_connection.on_reconnect(lambda: logging.info("reconnection in progress"))
+        hub_connection.on_open(lambda: logger.info("Connected to the server."))
+        hub_connection.on_reconnect(lambda: logger.info("reconnection in progress"))
 
         hub_connection.on("ReadyToCollect", create_async_task)
 
         hub_connection.start()
         hub_connection.on_close(lambda: hub_connection.start())
 
-        logging.info("Starting bot")
+        logger.info("Starting bot")
         bot.run(Config.key)
-    except Exception as e:
-        logging.error(str(e))
+    except Exception:
+        logger.exception("Application failed")
