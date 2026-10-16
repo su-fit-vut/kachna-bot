@@ -1,0 +1,74 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kis-food-announcer"
+version = "0.1.0"
+description = "Announces food orders from KIS system via text-to-speech."
+readme = "README.md"
+license = { text = "Beerware" }
+authors = [
+    { name = "Lukas Matuska", email = "matuska.lukas@lukasmatuska.cz" },
+]
+requires-python = ">=3.10"
+keywords = ["kis", "food", "announcer", "tts", "signalr"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Natural Language :: Czech",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+    "License :: Freely Distributable",
+]
+dependencies = [
+    "edge-tts",
+    "simpleaudio",
+    "requests",
+    "spotipy",
+    "pydub",
+    "pynacl",
+    "signalrcore",
+    "audioop-lts; python_version >= '3.13'",
+]
+
+[project.urls]
+Homepage = "https://github.com/su-fit-vut/kis-food-announcer"
+Repository = "https://github.com/su-fit-vut/kis-food-announcer.git"
+
+[dependency-groups]
+dev = [
+    "ruff",
+    "pre-commit",
+    "pytest",
+]
+
+[tool.uv]
+package = true
+
+[tool.setuptools.packages.find]
+include = ["kis_food_announcer*"]
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint.isort]
+known-first-party = [
+    "announcer",
+    "client",
+    "config",
+    "doorbell",
+    "helper",
+    "kachnaonline",
+    "main",
+    "music",
+    "oauth",
+    "sound",
+    "toasts",
+]

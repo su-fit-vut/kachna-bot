@@ -1,8 +1,12 @@
-import disnake
-from disnake.ext import commands
-from config import Config
 import datetime
 import logging
+
+import disnake
+from disnake.ext import commands
+
+from config import Config
+
+logger = logging.getLogger(__name__)
 
 
 class Music(commands.Cog):
@@ -12,7 +16,7 @@ class Music(commands.Cog):
     ):
         self.bot = bot
         self._last_member = None
-        self.wait_time = datetime.datetime.utcnow() - datetime.timedelta(seconds=Config.wait_time)
+        self.wait_time = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(seconds=Config.wait_time)
 
     async def autocomp_songs(
         inter: disnake.ApplicationCommandInteraction,
@@ -78,7 +82,7 @@ class Music(commands.Cog):
         """
         await inter.response.defer()
 
-        logging.info("Adding track to Spotify queue.")
+        logger.info("Adding track to Spotify queue.")
         Config.spotify.add_to_queue(track_id)
         track = Config.spotify.track(track_id)
         embed = disnake.Embed(

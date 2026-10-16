@@ -1,11 +1,17 @@
-import disnake
-from disnake.ext import commands
-from config import Config
-from os.path import exists
-from sound import Sound
-import requests
-from pydub import AudioSegment
+import asyncio
 import logging
+from os.path import exists
+from pathlib import Path
+
+import disnake
+import requests
+from disnake.ext import commands
+from pydub import AudioSegment
+
+from config import Config
+from sound import Sound
+
+logger = logging.getLogger(__name__)
 
 
 class ToastLanguage:
@@ -114,14 +120,14 @@ class Toasts(commands.Cog):
         text = ".   "
         if recipient is not None:
             # Recipient way
-            logging.info(f"Going to declare toasts for \"{recipient}\" in \"{lang}\".")
+            logger.info('Going to declare toasts for "%s" in "%s".', recipient, lang)
             full_filename = f"toasts-for-recipient-{number}.{lang}.wav"
             number = -1
             text += f"{language.recipient_toasts_text} {recipient}"
             response_text = f":arrow_right: \"{recipient}\""
         else:
             # Number way
-            logging.info(f"Going to declare toasts {number} in \"{lang}\".")
+            logger.info('Going to declare toasts %s in "%s".', number, lang)
             full_filename = f"toasts-number-{number}.{lang}.wav"
             text += f"{language.default_toasts_text} {number}"
             response_text = str(number)
@@ -138,10 +144,14 @@ class Toasts(commands.Cog):
         # If file is not in local directory create it
         if not exists(full_filename):
             q = requests.utils.quote(text)
-            request = requests.get(
-                f"https://translate.google.com/translate_tts?ie=UTF-8&tl={lang}&client=tw-ob&q={q}"
+            request = await asyncio.to_thread(
+                requests.get,
+                f"https://translate.google.com/translate_tts?ie=UTF-8&tl={lang}&client=tw-ob&q={q}",
             )
-            open(f"{Config.toasts_sounds_path}/{full_filename[:-4]}.mp3", "wb").write(request.content)
+            await asyncio.to_thread(
+                Path(f"{Config.toasts_sounds_path}/{full_filename[:-4]}.mp3").write_bytes,
+                request.content,
+            )
 
             # convert wav to mp3
             sound = AudioSegment.from_mp3(f"{Config.toasts_sounds_path}/{full_filename[:-4]}.mp3")

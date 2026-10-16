@@ -1,9 +1,12 @@
-from playsound import playsound
 import logging
 import time
 
+from playsound import playsound
 
-class Sound():
+logger = logging.getLogger(__name__)
+
+
+class Sound:
     def __init__(
         self,
         name,
@@ -19,7 +22,7 @@ class Sound():
     def play(
         self
     ):
-        logging.info(f"Playing sound \"{self.name}\"")
+        logger.info('Playing sound "%s"', self.name)
         for file in self.files:
             playsound(file)
 
@@ -52,14 +55,14 @@ class Sound():
             return
         volume = current_playback["device"]["volume_percent"]
 
-        logging.info("Fade in")
+        logger.info("Fade in")
         for i in range(volume, 10, -8):
             self.spotify.volume(i)
             time.sleep(0.250)
 
         self.play()
 
-        logging.info("Fade out")
+        logger.info("Fade out")
         for i in range(10, volume, 8):
             self.spotify.volume(i)
             time.sleep(0.250)
