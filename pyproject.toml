@@ -57,3 +57,18 @@ include = ["kis_food_announcer*"]
 
 [tool.ruff]
 line-length = 110
+
+[tool.ruff.lint.isort]
+known-first-party = [
+    "announcer",
+    "client",
+    "config",
+    "doorbell",
+    "helper",
+    "kachnaonline",
+    "main",
+    "music",
+    "oauth",
+    "sound",
+    "toasts",
+]
