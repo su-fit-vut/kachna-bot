@@ -3,3 +3,4 @@ repos:
     rev: v0.17.1
     hooks:
       - id: ruff
+        args: [--no-fix]

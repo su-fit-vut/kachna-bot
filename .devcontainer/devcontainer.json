@@ -1,32 +1,18 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
-	"name": "Python 3",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/python:3",
-	// "features": {
-	// 	"ghcr.io/itsmechlark/features/redis-server:1": {}
-	// },
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [8000],
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "sudo apt update && sudo apt install -y ffmpeg xdg-utils libasound2-dev && pip install uv && uv sync --group dev && uv run pre-commit install && curl -fsSL https://opencode.ai/v2/install | bash",
-	// Configure tool-specific properties.
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"ms-python.python",
-				"ms-python.vscode-pylance",
-				"esbenp.prettier-vscode",
-				"ms-python.black-formatter",
-				"charliermarsh.ruff",
-				"DavidAnson.vscode-markdownlint",
-				"GitHub.vscode-github-actions"
-			]
-		}
-	}
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+  "name": "KachnaBot",
+  "dockerComposeFile": ["../docker-compose.yml", "docker-compose.yml"],
+  "service": "kachnabot",
+  "workspaceFolder": "/app",
+  "remoteUser": "app",
+  "postCreateCommand": "uv sync --locked --all-groups && uv run pre-commit install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "GitHub.vscode-github-actions"
+      ]
+    }
+  }
 }

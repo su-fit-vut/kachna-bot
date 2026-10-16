@@ -1,27 +1,16 @@
-import asyncio
 import logging
-from os.path import exists
-from pathlib import Path
 
 import disnake
-import requests
 from disnake.ext import commands
-from pydub import AudioSegment
-
-from config import Config
-from sound import Sound
 
 logger = logging.getLogger(__name__)
 
 
 class Announce(commands.Cog):
-    def __init__(
-        self,
-        bot
-    ):
+    def __init__(self, bot):
         self.bot = bot
 
-    @commands.slash_command(description="Vyhlásí objednávku.")
+    @commands.slash_command(description="Zobrazí objednávku.")
     async def order(
         self,
         inter: disnake.ApplicationCommandInteraction | None,
@@ -29,66 +18,25 @@ class Announce(commands.Cog):
             ge=0,
             le=99,
             name="number",
-            description="Číslo volaných toustů, 0 = došly",
-            default=69
+            description="Číslo objednávky",
+            default=69,
         ),
         recipient: str = commands.Param(
             name="recipient",
-            description="Jméno příjemce volaných toustů v 2. pádě (Pro koho? Čeho?)",
-            default=None
-        )
+            description="Jméno příjemce objednávky",
+            default=None,
+        ),
     ):
-        if inter is not None:
-            await inter.response.defer()
-
-        # Prepare variables for order announcement
-        text = f".   objednávka číslo {number}"
-        if recipient is not None:
-            # Recipient way
-            logger.info('Going to announce order number "%s" for "%s".', recipient, recipient)
-            full_filename = f"order-for-recipient-{number}.wav"
-            text += f" pro uživatele {recipient}."
-            response_text = f":arrow_right: \"{recipient}\""
-        else:
-            # Number way
-            logger.info('Going to announce order number "%s".', recipient)
-            full_filename = f"order-for-recipient-{number}.wav"
+        if recipient is None:
             response_text = str(number)
             if number == 69:
-                response_text = f"{number} <:nepSmug:827833315822141451>"
+                response_text += " <:nepSmug:827833315822141451>"
             elif number == 0:
                 response_text = "<:sadIvo:567039959257710592>"
+        else:
+            response_text = f":arrow_right: \"{recipient}\""
 
-        # If file is not in local directory create it
-        if not exists(full_filename):
-            q = requests.utils.quote(text)
-            request = await asyncio.to_thread(
-                requests.get,
-                f"https://translate.google.com/translate_tts?ie=UTF-8&tl=cs-CZ&client=tw-ob&q={q}",
-            )
-            await asyncio.to_thread(
-                Path(f"{Config.toasts_sounds_path}/{full_filename[:-4]}.mp3").write_bytes,
-                request.content,
-            )
-
-            # convert wav to mp3
-            sound = AudioSegment.from_mp3(f"{Config.toasts_sounds_path}/{full_filename[:-4]}.mp3")
-            sound.export(f"{Config.toasts_sounds_path}/{full_filename}", format="wav")
-
-        # Define sound object
-        sound_to_play = Sound(
-            name=text,
-            files=[
-                f"{Config.toasts_sounds_path}/{full_filename}"
-            ],
-            spotify=Config.spotify,
-        )
-
-        # Play the sound object
-        sound_to_play.play_fade_out()
-
+        logger.info("Food order %s for %s", number, recipient or "unspecified recipient")
         if inter is not None:
-            # Send response message to channel
-            await inter.followup.send(
-                content=f":white_check_mark: :sandwich: {response_text}"
-            )
+            await inter.response.defer()
+            await inter.followup.send(f":white_check_mark: :sandwich: Order {response_text}")

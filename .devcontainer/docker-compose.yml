@@ -1,0 +1,9 @@
+services:
+  kachnabot:
+    command: sleep infinity
+    volumes:
+      - ..:/app
+      - dev-venv:/opt/venv
+
+volumes:
+  dev-venv:

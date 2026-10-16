@@ -5,14 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "kis-food-announcer"
 version = "0.1.0"
-description = "Announces food orders from KIS system via text-to-speech."
+description = "Kachna Discord bot for sound playback and food order notifications."
 readme = "README.md"
 license = { text = "Beerware" }
 authors = [
     { name = "Lukas Matuska", email = "matuska.lukas@lukasmatuska.cz" },
 ]
 requires-python = ">=3.10"
-keywords = ["kis", "food", "announcer", "tts", "signalr"]
+keywords = ["kis", "food", "announcer", "signalr", "audio"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Environment :: Console",
@@ -24,18 +24,15 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
-    "Topic :: Multimedia :: Sound/Audio :: Speech",
+    "Topic :: Multimedia :: Sound/Audio",
     "License :: Freely Distributable",
 ]
 dependencies = [
-    "edge-tts",
-    "simpleaudio",
+    "disnake",
     "requests",
     "spotipy",
-    "pydub",
     "pynacl",
     "signalrcore",
-    "audioop-lts; python_version >= '3.13'",
 ]
 
 [project.urls]
@@ -44,13 +41,16 @@ Repository = "https://github.com/su-fit-vut/kis-food-announcer.git"
 
 [dependency-groups]
 dev = [
-    "ruff",
+    "ruff==0.17.1",
     "pre-commit",
     "pytest",
 ]
 
 [tool.uv]
 package = true
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
 
 [tool.setuptools.packages.find]
 include = ["kis_food_announcer*"]

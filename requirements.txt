@@ -1,9 +1,0 @@
-python-dateutil
-wheel
-disnake
-playsound
-requests
-spotipy
-pydub
-pynacl
-signalrcore

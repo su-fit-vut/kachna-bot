@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  lint:
+  checks:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.12"
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v6
@@ -25,7 +25,47 @@ jobs:
           enable-cache: true
 
       - name: Install locked development tools
-        run: uv sync --locked --only-group dev
+        run: uv sync --locked --group dev
 
-      - name: Run Ruff
-        run: uv run --no-sync ruff check .
+      - name: Lint all tracked files
+        run: uv run --no-sync pre-commit run --all-files
+
+      - name: Run tests
+        run: uv run --no-sync pytest -q
+
+  publish-image:
+    needs: checks
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=ref,event=tag
+            type=raw,value=latest
+
+      - name: Build and publish image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

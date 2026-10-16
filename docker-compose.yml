@@ -1,0 +1,22 @@
+services:
+  kachnabot:
+    image: ghcr.io/su-fit-vut/kachna-bot:master
+    restart: unless-stopped
+    environment:
+      PULSE_SERVER: unix:/run/pulse/native
+      PULSE_COOKIE: /run/pulse/cookie
+    volumes:
+      - ./config.py:/app/config.py:ro
+      - ./config.json:/app/config.json:ro
+      - ./sounds:/app/sounds:ro
+      - app-data:/home/app
+      - type: bind
+        source: ${XDG_RUNTIME_DIR:?Set XDG_RUNTIME_DIR to your host runtime directory}/pulse/native
+        target: /run/pulse/native
+      - type: bind
+        source: ${PULSE_COOKIE_FILE:-${HOME:?Set HOME}/.config/pulse/cookie}
+        target: /run/pulse/cookie
+        read_only: true
+
+volumes:
+  app-data:

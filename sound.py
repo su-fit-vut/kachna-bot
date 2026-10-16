@@ -1,7 +1,6 @@
 import logging
+import subprocess
 import time
-
-from playsound import playsound
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +23,7 @@ class Sound:
     ):
         logger.info('Playing sound "%s"', self.name)
         for file in self.files:
-            playsound(file)
+            subprocess.run(["paplay", file], check=True)
 
     def play_fade_out(
         self
