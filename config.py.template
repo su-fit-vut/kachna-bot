@@ -1,6 +1,9 @@
-from kachna_bot.sound import Sound
+from typing import ClassVar
+
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+
+from kachna_bot.sound import Sound
 
 
 class Config:
@@ -28,7 +31,7 @@ class Config:
     # Sound settings
     sound_path = "sounds/duck-double.ogg"
     toasts_sounds_path = "./sounds/toasts"
-    sounds = [
+    sounds: ClassVar[list[Sound]] = [
         Sound(
             name="train",
             files=[
