@@ -1,17 +1,13 @@
-import json
 import time
 
 import requests
 from requests.auth import HTTPBasicAuth
 
+from config import Config
+
 # Global variables to store the cached token and its expiration time
 cached_token = None
 token_expiration = 0
-
-
-# Load configuration from JSON file
-with open("config.json", "r") as config_file:
-    config = json.load(config_file)
 
 
 def get_oauth_token(scope="kfm:e"):
@@ -20,13 +16,13 @@ def get_oauth_token(scope="kfm:e"):
     # Check if a cached token exists and is still valid
     if cached_token and token_expiration > time.time():
         return cached_token
-    auth = HTTPBasicAuth(config["client_id"], config["secret"])
+    auth = HTTPBasicAuth(Config.kis_client_id, Config.kis_client_secret)
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
     payload = {"scope": scope, "grant_type": "client_credentials"}
 
     try:
         response = requests.post(
-            config["url_token_endpoint"],
+            Config.kis_token_endpoint,
             auth=auth,
             headers=headers,
             data=payload,

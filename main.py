@@ -1,4 +1,3 @@
-import json
 import logging
 
 from signalrcore.hub_connection_builder import HubConnectionBuilder
@@ -26,14 +25,9 @@ if __name__ == "__main__":
         bot.add_cog(Toasts(bot))
         bot.add_cog(Announce(bot))
 
-        # Load configuration from JSON file
-        with open("config.json", "r") as config_file:
-            config = json.load(config_file)
-
-        # Access configuration values
-        url_signalr = config["url_signalr"]
-        keep_alive_interval = config["keep_alive_interval"]
-        reconnect_interval = config["reconnect_interval"]
+        url_signalr = Config.kis_signalr_url
+        keep_alive_interval = Config.kis_keep_alive_interval
+        reconnect_interval = Config.kis_reconnect_interval
 
         async def announce_ticket(itemDetails):
             if len(itemDetails) == 0:

@@ -7,7 +7,7 @@ Kachna Bot plays locally configured sound files through the host's PulseAudio-co
 - Linux host with PulseAudio, or PipeWire with its PulseAudio-compatible server enabled.
 - Docker Compose plugin.
 - A Discord bot token and Spotify application credentials in `config.py`.
-- KIS connection settings in `config.json`.
+- KIS connection settings in `config.py`.
 
 `paplay` uses the PulseAudio protocol. Compose passes the host's `pulse/native` socket into the container and uses the host PulseAudio cookie for authentication; it does not pass `/dev/snd` through or require a privileged container. This works with PipeWire when its PulseAudio compatibility socket is available at `$XDG_RUNTIME_DIR/pulse/native`.
 
@@ -19,7 +19,6 @@ Create the ignored runtime configuration files from the checked-in examples, the
 
 ```sh
 cp config.py.template config.py
-cp config.json.example config.json
 ```
 
 Make sure the host audio server is running and that its socket and cookie exist. The default cookie path is `~/.config/pulse/cookie`; set `PULSE_COOKIE_FILE` if the host uses another path. Set host IDs so the container's non-root user can access the user-owned socket:

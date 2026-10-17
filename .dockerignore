@@ -12,7 +12,5 @@ __pycache__
 .devcontainer
 .github
 config.py
-config.json
 config.py.template
-config.json.example
 tests

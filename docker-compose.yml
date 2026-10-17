@@ -7,7 +7,6 @@ services:
       PULSE_COOKIE: /run/pulse/cookie
     volumes:
       - ./config.py:/app/config.py:ro
-      - ./config.json:/app/config.json:ro
       - ./sounds:/app/sounds:ro
       - app-data:/home/app
       - type: bind

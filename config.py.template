@@ -4,6 +4,14 @@ from spotipy.oauth2 import SpotifyOAuth
 
 
 class Config:
+    # KIS OAuth and SignalR
+    kis_token_endpoint = "https://su-int.fit.vutbr.cz/connect/token"
+    kis_signalr_url = "wss://su-int.fit.vutbr.cz/food/hub/monitor"
+    kis_client_id = "kis-sales-backend"
+    kis_client_secret = ""
+    kis_keep_alive_interval = 5
+    kis_reconnect_interval = 10
+
     # Spotify
     spotify = spotipy.Spotify(
         auth_manager=SpotifyOAuth(
