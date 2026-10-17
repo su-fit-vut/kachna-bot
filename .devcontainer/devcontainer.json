@@ -1,7 +1,7 @@
 {
-  "name": "KachnaBot",
+  "name": "Kachna Bot",
   "dockerComposeFile": ["../docker-compose.yml", "docker-compose.yml"],
-  "service": "kachnabot",
+  "service": "kachna-bot",
   "workspaceFolder": "/app",
   "remoteUser": "app",
   "postCreateCommand": "uv sync --locked --all-groups && uv run pre-commit install",

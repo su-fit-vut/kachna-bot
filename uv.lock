@@ -735,7 +735,7 @@ wheels = [
 ]
 
 [[package]]
-name = "kis-food-announcer"
+name = "kachna-bot"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

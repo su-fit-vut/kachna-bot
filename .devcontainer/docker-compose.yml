@@ -1,5 +1,5 @@
 services:
-  kachnabot:
+  kachna-bot:
     command: sleep infinity
     volumes:
       - ..:/app

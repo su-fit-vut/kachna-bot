@@ -3,9 +3,9 @@ requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "kis-food-announcer"
+name = "kachna-bot"
 version = "0.1.0"
-description = "Kachna Discord bot for sound playback and food order notifications."
+description = "Kachna Bot for sound playback and food order notifications."
 readme = "README.md"
 license = { text = "Beerware" }
 authors = [
@@ -36,8 +36,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/su-fit-vut/kis-food-announcer"
-Repository = "https://github.com/su-fit-vut/kis-food-announcer.git"
+Homepage = "https://github.com/su-fit-vut/kachna-bot"
+Repository = "https://github.com/su-fit-vut/kachna-bot.git"
 
 [dependency-groups]
 dev = [
@@ -53,7 +53,7 @@ package = true
 pythonpath = ["."]
 
 [tool.setuptools.packages.find]
-include = ["kis_food_announcer*"]
+include = ["kachna_bot*"]
 
 [tool.ruff]
 line-length = 110

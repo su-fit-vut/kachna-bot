@@ -1,6 +1,6 @@
-# KachnaBot
+# Kachna Bot
 
-KachnaBot plays locally configured sound files through the host's PulseAudio-compatible audio server and provides Discord and KIS notifications. It does not generate speech. Speech/TTS is handled outside this repository; a host-side library can use the same `paplay` backend.
+Kachna Bot plays locally configured sound files through the host's PulseAudio-compatible audio server and provides Discord and KIS notifications. It does not generate speech. Speech/TTS is handled outside this repository; a host-side library can use the same `paplay` backend.
 
 ## Requirements
 
@@ -13,7 +13,7 @@ KachnaBot plays locally configured sound files through the host's PulseAudio-com
 
 ## Recommended: run with Docker
 
-Docker Compose is the preferred way to run KachnaBot: it installs the locked dependencies, runs as a non-root user, and connects `paplay` to the host's PulseAudio-compatible socket. The host-based `uv` workflow below is optional and intended for development.
+Docker Compose is the preferred way to run Kachna Bot: it installs the locked dependencies, runs as a non-root user, and connects `paplay` to the host's PulseAudio-compatible socket. The host-based `uv` workflow below is optional and intended for development.
 
 Create the ignored runtime configuration files from the checked-in examples, then edit them with your credentials:
 

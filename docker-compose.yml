@@ -1,5 +1,5 @@
 services:
-  kachnabot:
+  kachna-bot:
     image: ghcr.io/su-fit-vut/kachna-bot:master
     restart: unless-stopped
     environment:
