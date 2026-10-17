@@ -1,6 +1,6 @@
 from unittest.mock import Mock, call
 
-import sound
+from kachna_bot import sound
 
 
 def test_play_uses_paplay_for_each_file(monkeypatch):

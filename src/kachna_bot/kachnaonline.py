@@ -4,7 +4,7 @@ import time
 
 import requests
 
-from config import Config
+from .config import Config
 
 logger = logging.getLogger(__name__)
 

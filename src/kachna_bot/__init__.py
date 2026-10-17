@@ -1,0 +1,1 @@
+"""Kachna Bot application package."""

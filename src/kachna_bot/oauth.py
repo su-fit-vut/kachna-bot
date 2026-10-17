@@ -3,7 +3,7 @@ import time
 import requests
 from requests.auth import HTTPBasicAuth
 
-from config import Config
+from .config import Config
 
 # Global variables to store the cached token and its expiration time
 cached_token = None

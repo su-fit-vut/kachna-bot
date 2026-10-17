@@ -63,7 +63,8 @@ docs/_build/
 # PyBuilder
 target/
 
-config.py
+**/config.py
+!src/kachna_bot/config.py
 .idea
 
 sounds/toasts/

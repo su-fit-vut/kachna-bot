@@ -4,10 +4,10 @@ import logging
 import disnake
 from disnake.ext import commands
 
-import helper
-from config import Config
-from kachnaonline import KachnaOnline
-from sound import Sound
+from . import helper
+from .config import Config
+from .kachnaonline import KachnaOnline
+from .sound import Sound
 
 logger = logging.getLogger(__name__)
 

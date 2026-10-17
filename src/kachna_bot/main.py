@@ -2,19 +2,20 @@ import logging
 
 from signalrcore.hub_connection_builder import HubConnectionBuilder
 
-from announcer import Announce
-from client import Bot
-from config import Config
-from doorbell import Doorbell
-from music import Music
+from .announcer import Announce
+from .client import Bot
+from .config import Config
+from .doorbell import Doorbell
+from .music import Music
 
 # from signalrcore.hub.errors import HubConnectionError
-from oauth import get_oauth_token
-from toasts import Toasts
+from .oauth import get_oauth_token
+from .toasts import Toasts
 
 logger = logging.getLogger(__name__)
 
-if __name__ == "__main__":
+
+def main():
     try:
         logging.basicConfig(level=logging.INFO, format="%(asctime)s\t%(levelname)s\t%(message)s")
 
@@ -78,3 +79,7 @@ if __name__ == "__main__":
         bot.run(Config.key)
     except Exception:
         logger.exception("Application failed")
+
+
+if __name__ == "__main__":
+    main()

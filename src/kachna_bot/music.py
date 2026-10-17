@@ -4,7 +4,7 @@ import logging
 import disnake
 from disnake.ext import commands
 
-from config import Config
+from .config import Config
 
 logger = logging.getLogger(__name__)
 

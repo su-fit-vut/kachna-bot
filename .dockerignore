@@ -11,6 +11,7 @@ __pycache__
 .env.*
 .devcontainer
 .github
-config.py
+**/config.py
+!src/kachna_bot/config.py
 config.py.template
 tests

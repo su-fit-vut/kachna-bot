@@ -28,4 +28,4 @@ RUN uv sync --locked --no-dev \
 ENV HOME=/home/app
 USER app
 
-CMD ["uv", "run", "--no-sync", "python", "main.py"]
+CMD ["uv", "run", "--no-sync", "kachna-bot"]

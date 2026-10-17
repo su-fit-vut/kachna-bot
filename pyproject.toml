@@ -39,6 +39,9 @@ dependencies = [
 Homepage = "https://github.com/su-fit-vut/kachna-bot"
 Repository = "https://github.com/su-fit-vut/kachna-bot.git"
 
+[project.scripts]
+kachna-bot = "kachna_bot.main:main"
+
 [dependency-groups]
 dev = [
     "ruff==0.17.1",
@@ -50,9 +53,13 @@ dev = [
 package = true
 
 [tool.pytest.ini_options]
-pythonpath = ["."]
+pythonpath = ["src"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
+where = ["src"]
 include = ["kachna_bot*"]
 
 [tool.ruff]
@@ -60,15 +67,5 @@ line-length = 110
 
 [tool.ruff.lint.isort]
 known-first-party = [
-    "announcer",
-    "client",
-    "config",
-    "doorbell",
-    "helper",
-    "kachnaonline",
-    "main",
-    "music",
-    "oauth",
-    "sound",
-    "toasts",
+    "kachna_bot",
 ]
