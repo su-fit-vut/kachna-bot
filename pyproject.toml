@@ -44,7 +44,7 @@ kachna-bot = "kachna_bot.main:main"
 
 [dependency-groups]
 dev = [
-    "ruff==0.17.1",
+    "ruff==0.17.2",
     "pre-commit",
     "pytest",
 ]
